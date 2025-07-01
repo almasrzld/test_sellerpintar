@@ -14,6 +14,11 @@ Aplikasi manajemen artikel dengan role **User** dan **Admin**, dibangun mengguna
 - TypeScript + Linter
 - Middleware route protection dimulai (`middleware.ts`)
 
+✅ Slicing dan fetching user:
+
+- Slicing UI user
+- Integrasi api
+
 ---
 
 ## 🧱 Struktur Folder
@@ -89,11 +94,11 @@ TEST\_SELLERPINTAR/
 
 ### User
 
-* [ ] Register & Login dengan validasi
-* [ ] Halaman list artikel
-* [ ] Filter & Search (debounce)
-* [ ] Detail artikel + related posts
-* [ ] Logout
+* [x] Register & Login dengan validasi
+* [x] Halaman list artikel
+* [x] Filter & Search (debounce)
+* [x] Detail artikel + related posts
+* [x] Logout
 
 ### Admin
 
