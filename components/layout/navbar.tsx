@@ -50,7 +50,9 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          {data && <UserAvatar username={data.username} />}
+          {data && (
+            <UserAvatar username={data.username} textClassName="text-base" />
+          )}
 
           <div className="hidden md:block">
             {data && (

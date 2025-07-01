@@ -14,3 +14,15 @@ export const getRole = () => Cookies.get("access_role");
 export const setRole = (role: "Admin" | "User") =>
   Cookies.set("access_role", role);
 export const removeRole = () => Cookies.remove("access_role");
+
+export const setUserToLocalStorage = (user: any) => {
+  localStorage.setItem("user", JSON.stringify(user));
+};
+export const getUserFromLocalStorage = () => {
+  if (typeof window === "undefined") return null;
+  const stored = localStorage.getItem("user");
+  return stored ? JSON.parse(stored) : null;
+};
+export const removeUserFromLocalStorage = () => {
+  localStorage.removeItem("user");
+};

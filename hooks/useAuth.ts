@@ -1,5 +1,11 @@
 import { create } from "zustand";
-import { getToken, getRole, removeToken, removeRole } from "@/lib/utils";
+import {
+  getToken,
+  getRole,
+  removeToken,
+  removeRole,
+  removeUserFromLocalStorage,
+} from "@/lib/utils";
 import { axiosInstance } from "@/lib/axios";
 
 interface AuthState {
@@ -23,6 +29,7 @@ const useAuthStore = create<AuthState>((set) => ({
     } catch (error) {
       removeToken();
       removeRole();
+      removeUserFromLocalStorage();
       set({ data: null });
       window.location.href = "/";
     }
@@ -31,6 +38,7 @@ const useAuthStore = create<AuthState>((set) => ({
   logoutHandler: async () => {
     removeToken();
     removeRole();
+    removeUserFromLocalStorage();
     set({ data: null });
     window.location.href = "/";
   },
