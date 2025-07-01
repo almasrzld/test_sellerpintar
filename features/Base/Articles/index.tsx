@@ -1,10 +1,10 @@
-import { HeroSection } from "./section";
+import { HeroSection, ListArticlesSection } from "./section";
 
 const ArticklesFeature = () => {
   return (
     <div>
       <HeroSection />
-      {/* Add other sections here as needed */}
+      <ListArticlesSection />
     </div>
   );
 };
