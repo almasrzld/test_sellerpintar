@@ -26,10 +26,12 @@ interface ActionUserMenuProps {
   pathName: string;
   pathLink: string;
   isScrolled?: boolean;
+  textClassName?: string;
 }
 
 const ActionUserMenu: React.FC<ActionUserMenuProps> = (props) => {
-  const { data, logoutHandler, pathName, pathLink, isScrolled } = props;
+  const { data, logoutHandler, pathName, pathLink, isScrolled, textClassName } =
+    props;
 
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -39,7 +41,7 @@ const ActionUserMenu: React.FC<ActionUserMenuProps> = (props) => {
         <DropdownMenuTrigger asChild>
           <button
             className={`text-base font-medium leading-6 underline underline-offset-[3] focus:outline-none cursor-pointer ${
-              isScrolled ? "text-gray-900" : "text-white"
+              textClassName ?? (isScrolled ? "text-gray-900" : "text-white")
             }`}
           >
             {data?.username}
