@@ -39,7 +39,7 @@ const PaginationSection = ({
   };
 
   return (
-    <div className="flex items-center justify-center gap-2 pt-6 md:pt-[60px] pb-[60px] md:pb-[100px]">
+    <div className="flex items-center justify-center gap-2 pb-[60px] md:pb-[100px]">
       <Button
         disabled={page === 1}
         onClick={() => setPage(page - 1)}

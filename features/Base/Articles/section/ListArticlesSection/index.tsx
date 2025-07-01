@@ -14,7 +14,7 @@ const ListArticlesSection = () => {
 
   return (
     <section className="container pt-10">
-      <div>
+      <div className="pb-6 md:pb-[60px]">
         <p>
           Showing : {data?.data?.length ?? 0} of {data?.total ?? 0} articles
         </p>
