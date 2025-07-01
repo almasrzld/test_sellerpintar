@@ -94,11 +94,11 @@ TEST\_SELLERPINTAR/
 
 ### User
 
-* [x] Register & Login dengan validasi
-* [x] Halaman list artikel
-* [x] Filter & Search (debounce)
-* [x] Detail artikel + related posts
-* [x] Logout
+- [x] Register & Login dengan validasi
+- [x] Halaman list artikel
+- [x] Filter & Search (debounce)
+- [x] Detail artikel + related posts
+- [x] Logout
 
 ### Admin
 
