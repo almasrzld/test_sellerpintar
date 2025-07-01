@@ -21,11 +21,6 @@ const HeaderSection = () => {
   const { data, isLoading } = useGetArticles(category, search, 1, 10);
   const { data: dataCategory, isLoading: isLoadingCategory } = useGetCategory();
 
-  useEffect(() => {
-    console.log("Filter Search:", search);
-    console.log("Filter Category:", category);
-  }, [search, category]);
-
   return (
     <section
       className="relative text-center bg-cover bg-center bg-no-repeat h-screen text-white"

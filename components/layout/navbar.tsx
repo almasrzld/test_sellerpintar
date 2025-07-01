@@ -7,6 +7,7 @@ import UserAvatar from "../common/user-avatar";
 import ActionUserMenu from "../common/action-user-menu";
 import { useEffect, useState } from "react";
 import useMediaQuery from "../common/media-query";
+import Link from "next/link";
 
 const Navbar = () => {
   const [data, getUser, logoutHandler] = useAuthStore(
@@ -43,7 +44,9 @@ const Navbar = () => {
     >
       <div className="flex justify-between items-center">
         <div>
-          <Image src={logoSrc} alt="logo" width={134} height={24} priority />
+          <Link href="/">
+            <Image src={logoSrc} alt="logo" width={134} height={24} priority />
+          </Link>
         </div>
 
         <div className="flex items-center gap-2">

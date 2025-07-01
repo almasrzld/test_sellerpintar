@@ -1,27 +1,61 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
-import useGetArticles from "@/features/Dashboard/Articles/hook/useGetArticles";
-import parse from "html-react-parser";
 import Image from "next/image";
-import useArticlesFeature from "./hook";
-import { IArticlesSchema } from "@/features/Dashboard/Articles/schema";
-import PaginationSection from "../PaginationSection";
+import useGetArticlesDetail from "./hook/useGetArticlesDetails";
+import { useParams } from "next/navigation";
+import parse from "html-react-parser";
+import useGetOtherArticles from "./hook/useGetOtherArticles";
+import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { IArticlesSchema } from "@/features/Dashboard/Articles/schema";
+import SkeletonArticlesDetail from "@/components/common/skeleton-articles-detail";
 
-const ListArticlesSection = () => {
-  const { page, setPage, limit, value, category } = useArticlesFeature();
-  const { data, isLoading } = useGetArticles(category, value, page, limit);
+const ArticlesDetailFeature = () => {
+  const { id } = useParams();
+  const { data, isLoading } = useGetArticlesDetail(id as string);
+
+  const { data: otherArticles, isLoading: isOtherArticlesLoading } =
+    useGetOtherArticles(id as string);
+
+  if (isLoading) {
+    return <SkeletonArticlesDetail />;
+  }
 
   return (
-    <section className="container pt-10">
-      <div className="pb-6 md:pb-[60px]">
-        <p>
-          Showing : {data?.data?.length ?? 0} of {data?.total ?? 0} articles
+    <main className="container pt-[136px]">
+      <section>
+        <p className="text-center text-sm font-medium leading-5">
+          {new Date(data.createdAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}{" "}
+          <span className="mx-2">&middot;</span> Created by {data.user.username}
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-[60px] pt-6">
-          {isLoading
+        <h1 className="mx-auto text-center pt-4 pb-10 text-3xl font-semibold leading-9 max-w-2xl">
+          {data.title}
+        </h1>
+
+        <div className="relative w-full h-[300px] md:h-[480px] rounded-[12px] overflow-hidden">
+          <Image
+            src={data.imageUrl}
+            alt={data.title}
+            fill
+            className="object-cover"
+            priority
+            unoptimized
+          />
+        </div>
+
+        <div className="space-y-4 pt-10 pb-10">{parse(data.content)}</div>
+      </section>
+
+      <section className="pt-10 pb-[100px] px-4">
+        <h2 className="pb-6 text-xl font-bold leading-7">Other articles</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-[60px]">
+          {isOtherArticlesLoading
             ? Array.from({ length: 6 }).map((_, index) => (
                 <div key={index} className="flex flex-col animate-pulse">
                   <div className="w-full h-60 bg-gray-200 rounded-[12px]" />
@@ -34,7 +68,7 @@ const ListArticlesSection = () => {
                   </div>
                 </div>
               ))
-            : data?.data?.map((item: IArticlesSchema) => (
+            : otherArticles?.data.map((item: IArticlesSchema) => (
                 <div key={item.id} className="flex flex-col">
                   {item.imageUrl ? (
                     <div className="relative w-full h-60 rounded-[12px] overflow-hidden">
@@ -60,7 +94,7 @@ const ListArticlesSection = () => {
                     </p>
 
                     <Link href={`/${item.id}`}>
-                      <h2 className="text-lg font-semibold leading-7 text-slate-900 hover:underline">
+                      <h2 className="text-lg font-semibold leading-7 text-slate-900">
                         {item.title}
                       </h2>
                     </Link>
@@ -78,18 +112,9 @@ const ListArticlesSection = () => {
                 </div>
               ))}
         </div>
-      </div>
-
-      {data?.total > limit && (
-        <PaginationSection
-          page={page}
-          setPage={setPage}
-          total={data.total}
-          limit={limit}
-        />
-      )}
-    </section>
+      </section>
+    </main>
   );
 };
 
-export default ListArticlesSection;
+export default ArticlesDetailFeature;
