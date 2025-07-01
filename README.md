@@ -102,10 +102,10 @@ TEST\_SELLERPINTAR/
 
 ### Admin
 
-* [ ] Register & Login dengan validasi
-* [ ] CRUD kategori
-* [ ] CRUD artikel + preview
-* [ ] Filtering, search, pagination
+- [ ] Register & Login dengan validasi
+- [ ] CRUD kategori
+- [ ] CRUD artikel + preview
+- [ ] Filtering, search, pagination
 
 ---
 
