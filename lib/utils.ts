@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import Cookies from "js-cookie";
+import { UserType } from "@/types/user";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -15,7 +16,7 @@ export const setRole = (role: "Admin" | "User") =>
   Cookies.set("access_role", role);
 export const removeRole = () => Cookies.remove("access_role");
 
-export const setUserToLocalStorage = (user: any) => {
+export const setUserToLocalStorage = (user: UserType) => {
   localStorage.setItem("user", JSON.stringify(user));
 };
 export const getUserFromLocalStorage = () => {

@@ -46,6 +46,7 @@ const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
       <div className="bg-blue-600 sticky left-0 top-0 h-screen">
         <div className="flex h-full max-h-screen flex-col">
           <div>
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a href="/dashboard">
               <Image
                 src="/images/logo-white-img.png"

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ImagePlus } from "lucide-react";
+import Image from "next/image";
 
 interface Props {
   onChange: (file: File) => void;
@@ -18,10 +19,13 @@ const ThumbnailUpload = ({ onChange, preview }: Props) => {
       onDragLeave={() => setHovered(false)}
     >
       {preview ? (
-        <img
+        <Image
           src={preview}
           alt="Preview"
+          width={223}
+          height={163}
           className="w-full h-full object-cover rounded-md"
+          unoptimized
         />
       ) : (
         <>

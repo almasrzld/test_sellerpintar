@@ -53,7 +53,7 @@ const ActionUserMenu: React.FC<ActionUserMenuProps> = (props) => {
           className="w-[224px] rounded-md border border-border bg-white shadow-md"
         >
           <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href={pathLink as any}>{pathName}</Link>
+            <Link href={pathLink}>{pathName}</Link>
           </DropdownMenuItem>
           {data?.role !== "Admin" && (
             <>

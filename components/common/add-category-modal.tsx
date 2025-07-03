@@ -27,6 +27,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstanceToken } from "@/lib/axios";
 import { toast } from "sonner";
 import { useState } from "react";
+import axios from "axios";
 
 export const AddCategorySchema = z.object({
   name: z.string().min(1, "Category field cannot be empty"),
@@ -55,8 +56,12 @@ const AddCategoryModal = () => {
       setOpen(false);
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
-    onError: (error: any) => {
-      toast.error(error.response.data.message || "Something went wrong");
+    onError: (error: unknown) => {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message || "Something went wrong");
+      } else {
+        toast.error("Something went wrong");
+      }
     },
   });
 

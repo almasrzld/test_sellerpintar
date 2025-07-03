@@ -8,7 +8,6 @@ import {
   DialogTitle,
   DialogFooter,
   DialogClose,
-  DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +26,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstanceToken } from "@/lib/axios";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const EditCategorySchema = z.object({
   name: z.string().optional(),
@@ -64,8 +64,12 @@ const EditCategoryModal = ({ id, initialName }: EditCategoryModalProps) => {
       setOpen(false);
       queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
-    onError: (error: any) => {
-      toast.error(error.response?.data?.message || "Something went wrong");
+    onError: (error: unknown) => {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data?.message || "Something went wrong");
+      } else {
+        toast.error("Something went wrong");
+      }
     },
   });
 

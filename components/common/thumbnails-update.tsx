@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useRef } from "react";
 
 interface Props {
@@ -20,10 +21,13 @@ const ThumbnailUpdate = ({ onChange, preview }: Props) => {
     <div className="w-[223px] border border-slate-200 rounded-lg overflow-hidden">
       <div className="w-[199px] h-[115px] mx-auto mt-3 rounded-[6px] bg-slate-100 flex items-center justify-center">
         {preview ? (
-          <img
+          <Image
             src={preview}
             alt="Thumbnail Preview"
+            width={199}
+            height={115}
             className="w-full h-full object-cover rounded-[6px]"
+            unoptimized
           />
         ) : (
           <span className="text-sm text-slate-500">No image selected</span>
