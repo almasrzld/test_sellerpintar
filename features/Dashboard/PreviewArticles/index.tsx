@@ -51,6 +51,7 @@ const DashboardPreviewArticlesFeature = () => {
               fill
               className="object-cover"
               unoptimized
+              priority
             />
           </div>
         )}

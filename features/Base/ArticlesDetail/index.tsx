@@ -37,16 +37,20 @@ const ArticlesDetailFeature = () => {
           {data.title}
         </h1>
 
-        <div className="relative w-full h-[300px] md:h-[480px] rounded-[12px] overflow-hidden">
-          <Image
-            src={data.imageUrl}
-            alt={data.title}
-            fill
-            className="object-cover"
-            priority
-            unoptimized
-          />
-        </div>
+        {data.imageUrl?.trim() ? (
+          <div className="relative w-full h-[300px] md:h-[480px] rounded-[12px] overflow-hidden">
+            <Image
+              src={data.imageUrl}
+              alt={data.title}
+              fill
+              className="object-cover"
+              priority
+              unoptimized
+            />
+          </div>
+        ) : (
+          <div className="w-full h-[300px] md:h-[480px] bg-gray-200 rounded-[12px]" />
+        )}
 
         <div className="space-y-4 pt-10 pb-10">{parse(data.content)}</div>
       </section>

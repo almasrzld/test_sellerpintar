@@ -16,7 +16,7 @@ import {
   Undo2,
   Redo2,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface TiptapEditorProps {
   value: string;
@@ -57,6 +57,12 @@ export const TiptapEditor: React.FC<TiptapEditorProps> = ({
     },
     immediatelyRender: false,
   });
+
+  useEffect(() => {
+    if (editor && value !== editor.getHTML()) {
+      editor.commands.setContent(value || "", false);
+    }
+  }, [value, editor]);
 
   if (!editor) return null;
 

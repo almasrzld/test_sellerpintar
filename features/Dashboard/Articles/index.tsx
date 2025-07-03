@@ -27,6 +27,18 @@ import { IArticlesSchema } from "./schema";
 import { format } from "date-fns";
 import { PaginationSection } from "@/features/Base/Articles/section";
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+  AlertDialogDescription,
+} from "@/components/ui/alert-dialog";
+import useDeleteArticlesMutation from "./hook/useDeleteArticlesById";
 
 const DashboardArticlesFeature = () => {
   const {
@@ -41,6 +53,7 @@ const DashboardArticlesFeature = () => {
   } = useArticlesFeature();
   const { data: dataCategory, isLoading: isLoadingCategory } = useGetCategory();
   const { data, isLoading } = useGetArticles(category, value, page, limit);
+  const { mutate, isPending: isLoadingDelete } = useDeleteArticlesMutation();
 
   return (
     <main>
@@ -137,7 +150,7 @@ const DashboardArticlesFeature = () => {
                 <TableCell>
                   {format(new Date(item.createdAt), "MMMM dd, yyyy HH:mm:ss")}
                 </TableCell>
-                <TableCell className="space-x-3">
+                <TableCell className="flex justify-center items-center gap-3">
                   <Link
                     href={`/${item.id}`}
                     className="text-blue-600 underline"
@@ -145,17 +158,42 @@ const DashboardArticlesFeature = () => {
                     Preview
                   </Link>
                   <Link
-                    href={`/dashboard/articles/id`}
+                    href={`/dashboard/${item.id}/edit`}
                     className="text-blue-600 underline"
                   >
                     Edit
                   </Link>
-                  <Link
-                    href={`/dashboard/articles/id`}
-                    className="text-red-500 underline"
-                  >
-                    Delete
-                  </Link>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="text-red-500 underline hover:text-red-600 cursor-pointer p-0 h-auto"
+                      >
+                        Delete
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="text-lg font-semibold leading-7">
+                          Delete Articles
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-sm font-normal leading-5">
+                          Deleting this article is permanent and cannot be
+                          undone. All related content will be removed.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          disabled={isLoadingDelete}
+                          onClick={() => mutate(item.id)}
+                          className="bg-red-500 hover:bg-red-600 text-white"
+                        >
+                          {isLoadingDelete ? "Deleting..." : "Delete"}
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </TableCell>
               </TableRow>
             ))

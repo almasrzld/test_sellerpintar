@@ -5,7 +5,7 @@ const useGetCategory = () => {
   return useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const response = await axiosInstance.get("/categories");
+      const response = await axiosInstance.get("/categories?limit=100");
       return response.data;
     },
   });

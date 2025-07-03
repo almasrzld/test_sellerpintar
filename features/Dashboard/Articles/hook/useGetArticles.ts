@@ -8,7 +8,7 @@ const useGetArticles = (
   limit: number
 ) => {
   return useQuery({
-    queryKey: ["Articles", category, value, page, limit],
+    queryKey: ["articles", category, value, page, limit],
     queryFn: async () => {
       const response = await axiosInstance.get("/articles", {
         params: {

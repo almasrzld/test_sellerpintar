@@ -29,6 +29,7 @@ const useCreateArticlesMutation = () => {
     },
     onSuccess: (data) => {
       toast.success(data.message || "Upload successful");
+      localStorage.removeItem("article_preview");
       window.location.href = "/dashboard";
     },
     onError: (error: any) => {
