@@ -139,7 +139,7 @@ const AuthRegisterFeature = () => {
         <p className="text-sm text-center font-normal leading-5 tracking-[0px]">
           Already have an account?{" "}
           <a
-            href="/auth/register"
+            href="/auth/login"
             className="text-blue-600 underline underline-offset-[3px] hover:text-blue-600/80"
           >
             Login

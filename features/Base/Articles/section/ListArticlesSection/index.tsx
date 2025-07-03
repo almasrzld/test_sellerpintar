@@ -81,12 +81,14 @@ const ListArticlesSection = () => {
       </div>
 
       {data?.total > limit && (
-        <PaginationSection
-          page={page}
-          setPage={setPage}
-          total={data.total}
-          limit={limit}
-        />
+        <div className="pb-[60px] md:pb-[100px]">
+          <PaginationSection
+            page={page}
+            setPage={setPage}
+            total={data.total}
+            limit={limit}
+          />
+        </div>
       )}
     </section>
   );

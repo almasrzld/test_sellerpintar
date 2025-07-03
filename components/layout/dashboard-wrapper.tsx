@@ -44,11 +44,11 @@ const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
   ];
 
   const activePageTitle =
-    SIDEBAR_ITEM.find((item) => item.href === isActive)?.title ?? "";
+    SIDEBAR_ITEM.find((item) => isActive.startsWith(item.href))?.title ?? "";
 
   return (
     <div className="grid min-h-screen w-full grid-cols-[267px_1fr]">
-      <div className="bg-blue-600">
+      <div className="bg-blue-600 sticky left-0 top-0 h-screen">
         <div className="flex h-full max-h-screen flex-col">
           <div>
             <Image
@@ -78,9 +78,9 @@ const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col h-screen">
         <div>
-          <header className="flex h-[68px] items-center justify-between gap-4 border-b bg-white px-6">
+          <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between gap-4 border-b bg-white px-6">
             <h1 className="text-xl font-semibold leading-7">
               {activePageTitle}
             </h1>
@@ -106,7 +106,11 @@ const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
             </div>
           </header>
         </div>
-        <main className="p-6">{children}</main>
+        <main className="p-6 overflow-auto flex-1">
+          <div className="w-full min-h-screen bg-gray-50 border rounded-[12px]">
+            {children}
+          </div>
+        </main>
       </div>
     </div>
   );

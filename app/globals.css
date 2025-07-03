@@ -125,3 +125,33 @@
     @apply w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 }
+
+.ProseMirror [style*="text-align: justify"] {
+  text-align: justify;
+}
+
+.ProseMirror [style*="text-align: center"] {
+  text-align: center;
+}
+
+.ProseMirror [style*="text-align: right"] {
+  text-align: right;
+}
+
+.ProseMirror [style*="text-align: left"] {
+  text-align: left;
+}
+
+.ProseMirror {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.is-editor-empty::before {
+  content: attr(data-placeholder);
+  color: #9ca3af;
+  float: left;
+  height: 0;
+  pointer-events: none;
+}

@@ -55,14 +55,18 @@ const ActionUserMenu: React.FC<ActionUserMenuProps> = (props) => {
           <DropdownMenuItem asChild className="cursor-pointer">
             <Link href={pathLink as any}>{pathName}</Link>
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={() => setOpenDialog(true)}
-            className="text-red-500 focus:text-red-500 gap-2 cursor-pointer"
-          >
-            <LogOut className="w-2 h-2 text-current" />
-            Log out
-          </DropdownMenuItem>
+          {data?.role !== "Admin" && (
+            <>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                onClick={() => setOpenDialog(true)}
+                className="text-red-500 focus:text-red-500 gap-2 cursor-pointer"
+              >
+                <LogOut className="w-2 h-2 text-current" />
+                Log out
+              </DropdownMenuItem>
+            </>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
 
