@@ -19,6 +19,7 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+import UserAvatar from "./user-avatar";
 
 interface ActionUserMenuProps {
   data: IRegisterSchema;
@@ -39,12 +40,17 @@ const ActionUserMenu: React.FC<ActionUserMenuProps> = (props) => {
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <button
-            className={`text-base font-medium leading-6 underline underline-offset-[3] focus:outline-none cursor-pointer ${
-              textClassName ?? (isScrolled ? "text-gray-900" : "text-white")
-            }`}
-          >
-            {data?.username}
+          <button className="focus:outline-none cursor-pointer">
+            <div className="flex items-center gap-2">
+              <UserAvatar username={data?.username} textClassName="text-base" />
+              <div
+                className={`text-base font-medium leading-6 underline underline-offset-[3] hidden md:block ${
+                  textClassName ?? (isScrolled ? "text-gray-900" : "text-white")
+                }`}
+              >
+                {data?.username}
+              </div>
+            </div>
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent

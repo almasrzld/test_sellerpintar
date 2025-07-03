@@ -84,7 +84,7 @@ const EditCategoryModal = ({ id, initialName }: EditCategoryModalProps) => {
       <DialogTrigger asChild>
         <Button
           variant="ghost"
-          className="text-blue-600 text-sm font-normal underline hover:text-blue-400 cursor-pointer p-0 h-auto"
+          className="text-blue-600 text-sm font-normal underline hover:text-blue-400 cursor-pointer p-0 h-auto focus:outline-none"
         >
           Edit
         </Button>

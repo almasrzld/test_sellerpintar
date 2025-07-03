@@ -98,7 +98,7 @@ const ArticlesDetailFeature = () => {
                     </p>
 
                     <Link href={`/${item.id}`}>
-                      <h2 className="text-lg font-semibold leading-7 text-slate-900">
+                      <h2 className="text-lg font-semibold leading-7 text-slate-900 hover:underline">
                         {item.title}
                       </h2>
                     </Link>

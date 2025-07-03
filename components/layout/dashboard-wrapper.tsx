@@ -6,7 +6,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import useAuthStore from "@/hooks/useAuth";
-import UserAvatar from "../common/user-avatar";
 import ActionUserMenu from "../common/action-user-menu";
 import { useShallow } from "zustand/react/shallow";
 import SidebarLogoutButton from "../common/sidebar-logout-button";
@@ -88,26 +87,16 @@ const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
         <div>
           <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between gap-4 border-b bg-white px-6">
             <h1 className="text-xl font-semibold leading-7">{pageTitle}</h1>
-            <div className="flex items-center gap-2">
-              {data && (
-                <UserAvatar
-                  username={data.username}
-                  textClassName="text-base"
-                />
-              )}
 
-              <div className="hidden md:block">
-                {data && (
-                  <ActionUserMenu
-                    data={data}
-                    logoutHandler={logoutHandler}
-                    pathName="My Account"
-                    pathLink="/dashboard/profile"
-                    textClassName="text-slate-900"
-                  />
-                )}
-              </div>
-            </div>
+            {data && (
+              <ActionUserMenu
+                data={data}
+                logoutHandler={logoutHandler}
+                pathName="My Account"
+                pathLink="/dashboard/profile"
+                textClassName="text-slate-900"
+              />
+            )}
           </header>
         </div>
         <main className="p-6 overflow-auto flex-1">

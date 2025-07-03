@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useShallow } from "zustand/react/shallow";
 import useAuthStore from "@/hooks/useAuth";
-import UserAvatar from "../common/user-avatar";
 import ActionUserMenu from "../common/action-user-menu";
 import { useEffect, useState } from "react";
 import useMediaQuery from "../common/media-query";
@@ -53,24 +52,16 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <div className="flex items-center gap-2">
-          {data && (
-            <UserAvatar username={data.username} textClassName="text-base" />
-          )}
-
-          <div className="hidden md:block">
-            {data && (
-              <ActionUserMenu
-                data={data}
-                logoutHandler={logoutHandler}
-                pathName="My Account"
-                pathLink="/profile"
-                isScrolled={isScrolled}
-                textClassName={textClassName}
-              />
-            )}
-          </div>
-        </div>
+        {data && (
+          <ActionUserMenu
+            data={data}
+            logoutHandler={logoutHandler}
+            pathName="My Account"
+            pathLink="/profile"
+            isScrolled={isScrolled}
+            textClassName={textClassName}
+          />
+        )}
       </div>
     </nav>
   );
