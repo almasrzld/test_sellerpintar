@@ -19,7 +19,11 @@ const HeaderSection = () => {
   const { search, setSearch, category, setCategory } = useArticlesFeature();
 
   const { data, isLoading } = useGetArticles(category, search, 1, 10);
-  const { data: dataCategory, isLoading: isLoadingCategory } = useGetCategory();
+  const { data: dataCategory, isLoading: isLoadingCategory } = useGetCategory(
+    "",
+    1,
+    1000
+  );
 
   return (
     <section

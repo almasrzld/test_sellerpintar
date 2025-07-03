@@ -8,7 +8,6 @@ const useDashboardCategoryFeature = () => {
   const [limit, setLimit] = useState<number>(10);
   const [search, setSearch] = useState<string>("");
   const [value] = useDebounce(search, 500);
-  const [location, setLocation] = useState<string>("");
 
   return {
     page,
@@ -17,8 +16,6 @@ const useDashboardCategoryFeature = () => {
     search,
     setSearch,
     value,
-    location,
-    setLocation,
   };
 };
 
