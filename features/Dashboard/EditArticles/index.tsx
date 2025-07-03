@@ -55,7 +55,7 @@ const DashboardEditArticlesFeature = () => {
   const { id } = useParams();
   const { data } = useGetArticlesDetail(id as string);
   const { mutate, isPending } = useEditArticleMutation(id as string);
-  const { data: categories } = useGetCategory();
+  const { data: categories } = useGetCategory("", 1, 1000);
   const [preview, setPreview] = useState<string | null>(null);
   const [hasPreview, setHasPreview] = useState(false);
 

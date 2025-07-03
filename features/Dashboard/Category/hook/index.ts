@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useDebounce } from "use-debounce";
-import { CategorySchema, ICategorySchema } from "../schema";
 
 const useDashboardCategoryFeature = () => {
   const [page, setPage] = useState<number>(1);

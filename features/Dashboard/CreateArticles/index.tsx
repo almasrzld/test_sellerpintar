@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useCreateArticlesMutation from "./hook/useCreateArticlesMutation";
 import useGetCategory from "../Category/hook/useGetCategory";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -28,6 +28,16 @@ import {
 import { TiptapEditor } from "@/components/common/tiptap-editor";
 import ThumbnailUpload from "@/components/common/thumbnails-upload";
 import { useRouter } from "next/navigation";
+
+function base64ToFile(base64: string, filename = "preview.png"): File {
+  const arr = base64.split(",");
+  const mime = arr[0].match(/:(.*?);/)?.[1] || "image/png";
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) u8arr[n] = bstr.charCodeAt(n);
+  return new File([u8arr], filename, { type: mime });
+}
 
 const DashboardCreateArticlesFeature = () => {
   const form = useForm<ICreateArticleSchema>({
@@ -43,8 +53,36 @@ const DashboardCreateArticlesFeature = () => {
   const router = useRouter();
 
   const { mutate, isPending } = useCreateArticlesMutation();
-  const { data: categories } = useGetCategory();
+  const { data: categories } = useGetCategory("", 1, 1000);
   const [preview, setPreview] = useState<string | null>(null);
+  const [hasPreview, setHasPreview] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("article_preview");
+    if (!stored) return;
+
+    const parsed = JSON.parse(stored);
+    form.setValue("title", parsed.title);
+    form.setValue("content", parsed.content);
+
+    if (parsed.image?.startsWith("data:image")) {
+      const file = base64ToFile(parsed.image);
+      form.setValue("image", file);
+      setPreview(parsed.image);
+    }
+
+    // Tunggu categories tersedia baru set categoryId
+    if (parsed.categoryId && categories?.data?.length) {
+      const matched = categories.data.find(
+        (c: any) => c.id === parsed.categoryId
+      );
+      if (matched) {
+        form.setValue("categoryId", parsed.categoryId);
+      }
+    }
+
+    setHasPreview(true);
+  }, [categories]);
 
   return (
     <main>
@@ -63,10 +101,7 @@ const DashboardCreateArticlesFeature = () => {
 
       <div className="p-6">
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit((values) => mutate(values))}
-            className=""
-          >
+          <form onSubmit={form.handleSubmit((values) => mutate(values))}>
             <div className="space-y-4">
               <FormField
                 control={form.control}
@@ -203,7 +238,7 @@ const DashboardCreateArticlesFeature = () => {
                   } else {
                     const previewData = {
                       ...values,
-                      image: null,
+                      image: preview,
                       createdAt: new Date().toISOString(),
                       user: { username: "Preview User" },
                     };

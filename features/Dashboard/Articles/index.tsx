@@ -51,7 +51,11 @@ const DashboardArticlesFeature = () => {
     limit,
     value,
   } = useArticlesFeature();
-  const { data: dataCategory, isLoading: isLoadingCategory } = useGetCategory();
+  const { data: dataCategory, isLoading: isLoadingCategory } = useGetCategory(
+    "",
+    1,
+    1000
+  );
   const { data, isLoading } = useGetArticles(category, value, page, limit);
   const { mutate, isPending: isLoadingDelete } = useDeleteArticlesMutation();
 
