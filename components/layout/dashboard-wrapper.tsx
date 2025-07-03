@@ -9,6 +9,7 @@ import useAuthStore from "@/hooks/useAuth";
 import UserAvatar from "../common/user-avatar";
 import ActionUserMenu from "../common/action-user-menu";
 import { useShallow } from "zustand/react/shallow";
+import SidebarLogoutButton from "../common/sidebar-logout-button";
 
 const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -61,18 +62,25 @@ const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
             />
 
             <nav className="text-white px-4 space-y-2">
-              {SIDEBAR_ITEM.map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.href as any}
-                  className={`flex items-center gap-3 py-2 px-4 rounded-[6px] hover:bg-blue-500 text-base font-medium leading-6 hover:text-white/80 ${
-                    isActive === item.href ? "bg-blue-500" : ""
-                  }`}
-                >
-                  <item.icons className="w-5 h-5" />
-                  {item.title}
-                </Link>
-              ))}
+              {SIDEBAR_ITEM.map((item) =>
+                item.title === "Logout" ? (
+                  <SidebarLogoutButton
+                    key={item.title}
+                    onLogout={logoutHandler}
+                  />
+                ) : (
+                  <Link
+                    key={item.title}
+                    href={item.href}
+                    className={`flex items-center gap-3 py-2 px-4 rounded-[6px] hover:bg-blue-500 text-base font-medium leading-6 hover:text-white/80 ${
+                      isActive === item.href ? "bg-blue-500" : ""
+                    }`}
+                  >
+                    <item.icons className="w-5 h-5" />
+                    {item.title}
+                  </Link>
+                )
+              )}
             </nav>
           </div>
         </div>
