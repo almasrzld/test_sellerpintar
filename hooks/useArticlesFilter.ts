@@ -13,7 +13,7 @@ interface ArticlesState {
 
 const useArticlesStore = create<ArticlesState>((set) => ({
   page: 1,
-  limit: 9,
+  limit: 10,
   search: "",
   category: "",
   setPage: (val) => set({ page: val }),

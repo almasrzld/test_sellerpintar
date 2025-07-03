@@ -2,8 +2,9 @@
 
 import { useDebounce } from "use-debounce";
 import useArticlesStore from "@/hooks/useArticlesFilter";
+import { useEffect } from "react";
 
-const useArticlesFeature = () => {
+const useArticlesFeature = (isUser = false) => {
   const {
     page,
     setPage,
@@ -15,6 +16,10 @@ const useArticlesFeature = () => {
     setCategory,
   } = useArticlesStore();
   const [value] = useDebounce(search, 500);
+
+  useEffect(() => {
+    setLimit(isUser ? 9 : 10);
+  }, [isUser, setLimit]);
 
   return {
     page,

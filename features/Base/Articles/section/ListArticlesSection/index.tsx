@@ -10,7 +10,7 @@ import PaginationSection from "../PaginationSection";
 import Link from "next/link";
 
 const ListArticlesSection = () => {
-  const { page, setPage, limit, value, category } = useArticlesFeature();
+  const { page, setPage, limit, value, category } = useArticlesFeature(true);
   const { data, isLoading } = useGetArticles(category, value, page, limit);
 
   return (
