@@ -83,23 +83,22 @@ const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
         </div>
       </div>
 
-      <div className="flex flex-col h-screen">
-        <div>
-          <header className="sticky top-0 z-30 flex h-[68px] items-center justify-between gap-4 border-b bg-white px-6">
-            <h1 className="text-xl font-semibold leading-7">{pageTitle}</h1>
+      <div className="flex flex-col h-screen overflow-y-auto">
+        <header className="sticky top-0 z-30 flex py-4 items-center justify-between gap-4 border-b bg-white px-6">
+          <h1 className="text-xl font-semibold leading-7">{pageTitle}</h1>
 
-            {data && (
-              <ActionUserMenu
-                data={data}
-                logoutHandler={logoutHandler}
-                pathName="My Account"
-                pathLink="/dashboard/profile"
-                textClassName="text-slate-900"
-              />
-            )}
-          </header>
-        </div>
-        <main className="p-6 overflow-auto flex-1">
+          {data && (
+            <ActionUserMenu
+              data={data}
+              logoutHandler={logoutHandler}
+              pathName="My Account"
+              pathLink="/dashboard/profile"
+              textClassName="text-slate-900"
+            />
+          )}
+        </header>
+
+        <main className="p-6 flex-1">
           <div className="w-full min-h-full bg-gray-50 border rounded-[12px]">
             {children}
           </div>
