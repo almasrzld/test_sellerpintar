@@ -60,12 +60,12 @@ const DashboardArticlesFeature = () => {
   const { mutate, isPending: isLoadingDelete } = useDeleteArticlesMutation();
 
   return (
-    <main>
+    <main className="w-full overflow-x-hidden">
       <h1 className="text-base font-medium leading-6 p-6">
         Total Articles : {data?.total ?? 0}
       </h1>
-      <div className="py-[26px] px-6 flex justify-between items-center border-y">
-        <div className="flex space-x-2">
+      <div className="py-[26px] px-6 flex flex-col md:flex-row md:justify-between md:items-center border-y gap-3">
+        <div className="flex flex-col sm:flex-row w-full gap-2">
           <Select value={category} onValueChange={setCategory}>
             <SelectTrigger className="w-full md:w-[109px] bg-white text-black">
               <SelectValue placeholder="Category" />
@@ -105,105 +105,109 @@ const DashboardArticlesFeature = () => {
           </Button>
         </Link>
       </div>
-      <Table className="table-fixed w-full">
-        <TableHeader>
-          <TableRow className="bg-gray-100">
-            <TableHead>Thumbnails</TableHead>
-            <TableHead>Title</TableHead>
-            <TableHead>Category</TableHead>
-            <TableHead>Created at</TableHead>
-            <TableHead>Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {isLoading ? (
-            <TableRow>
-              <TableCell colSpan={5}>Loading...</TableCell>
+      <div className="overflow-x-auto">
+        <Table className="table-fixed min-w-[640px] w-full">
+          <TableHeader>
+            <TableRow className="bg-gray-100">
+              <TableHead>Thumbnails</TableHead>
+              <TableHead>Title</TableHead>
+              <TableHead>Category</TableHead>
+              <TableHead>Created at</TableHead>
+              <TableHead>Action</TableHead>
             </TableRow>
-          ) : data?.data.length === 0 ? (
-            <TableRow>
-              <TableCell
-                colSpan={5}
-                className="text-center py-4 text-gray-500 italic"
-              >
-                No articles found.
-              </TableCell>
-            </TableRow>
-          ) : (
-            data?.data.map((item: IArticlesSchema) => (
-              <TableRow key={item.id}>
-                <TableCell>
-                  {item.imageUrl ? (
-                    <div className="relative w-[60px] h-[60px] mx-auto rounded-[6px] overflow-hidden">
-                      <Image
-                        src={item.imageUrl}
-                        alt={item.title}
-                        fill
-                        unoptimized
-                        className="object-cover"
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-[60px] h-[60px] mx-auto rounded-[6px] bg-gray-200" />
-                  )}
-                </TableCell>
-                <TableCell className="text-left truncate">
-                  <p className="line-clamp-3 whitespace-normal">{item.title}</p>
-                </TableCell>
-                <TableCell>{item.category.name}</TableCell>
-                <TableCell>
-                  {format(new Date(item.createdAt), "MMMM dd, yyyy HH:mm:ss")}
-                </TableCell>
-                <TableCell className="flex justify-center items-center gap-3">
-                  <Link
-                    href={`/${item.id}`}
-                    className="text-blue-600 underline"
-                  >
-                    Preview
-                  </Link>
-                  <Link
-                    href={`/dashboard/${item.id}/edit`}
-                    className="text-blue-600 underline"
-                  >
-                    Edit
-                  </Link>
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        className="text-red-500 underline hover:text-red-600 cursor-pointer p-0 h-auto"
-                      >
-                        Delete
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle className="text-lg font-semibold leading-7">
-                          Delete Articles
-                        </AlertDialogTitle>
-                        <AlertDialogDescription className="text-sm font-normal leading-5">
-                          Deleting this article is permanent and cannot be
-                          undone. All related content will be removed.
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction
-                          disabled={isLoadingDelete}
-                          onClick={() => mutate(item.id)}
-                          className="bg-red-500 hover:bg-red-600 text-white"
-                        >
-                          {isLoadingDelete ? "Deleting..." : "Delete"}
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
+          </TableHeader>
+          <TableBody>
+            {isLoading ? (
+              <TableRow>
+                <TableCell colSpan={5}>Loading...</TableCell>
+              </TableRow>
+            ) : data?.data.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  colSpan={5}
+                  className="text-center py-4 text-gray-500 italic"
+                >
+                  No articles found.
                 </TableCell>
               </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
+            ) : (
+              data?.data.map((item: IArticlesSchema) => (
+                <TableRow key={item.id}>
+                  <TableCell>
+                    {item.imageUrl ? (
+                      <div className="relative w-[60px] h-[60px] mx-auto rounded-[6px] overflow-hidden">
+                        <Image
+                          src={item.imageUrl}
+                          alt={item.title}
+                          fill
+                          unoptimized
+                          className="object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-[60px] h-[60px] mx-auto rounded-[6px] bg-gray-200" />
+                    )}
+                  </TableCell>
+                  <TableCell className="text-left truncate">
+                    <p className="line-clamp-3 whitespace-normal">
+                      {item.title}
+                    </p>
+                  </TableCell>
+                  <TableCell>{item.category.name}</TableCell>
+                  <TableCell>
+                    {format(new Date(item.createdAt), "MMMM dd, yyyy HH:mm:ss")}
+                  </TableCell>
+                  <TableCell className="flex justify-center items-center gap-3">
+                    <Link
+                      href={`/${item.id}`}
+                      className="text-blue-600 underline"
+                    >
+                      Preview
+                    </Link>
+                    <Link
+                      href={`/dashboard/${item.id}/edit`}
+                      className="text-blue-600 underline"
+                    >
+                      Edit
+                    </Link>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          className="text-red-500 underline hover:text-red-600 cursor-pointer p-0 h-auto"
+                        >
+                          Delete
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle className="text-lg font-semibold leading-7">
+                            Delete Articles
+                          </AlertDialogTitle>
+                          <AlertDialogDescription className="text-sm font-normal leading-5">
+                            Deleting this article is permanent and cannot be
+                            undone. All related content will be removed.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            disabled={isLoadingDelete}
+                            onClick={() => mutate(item.id)}
+                            className="bg-red-500 hover:bg-red-600 text-white"
+                          >
+                            {isLoadingDelete ? "Deleting..." : "Delete"}
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </div>
 
       {data?.total > limit && (
         <div className="py-6 border-t">
