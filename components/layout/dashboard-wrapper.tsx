@@ -107,7 +107,7 @@ const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
                 <div className="bg-blue-600 h-full">
                   <div className="flex h-full max-h-screen flex-col">
                     <div>
-                      <a href="/dashboard">
+                      <Link href="/dashboard">
                         <Image
                           src="/images/logo-white-img.png"
                           alt="logo"
@@ -116,7 +116,7 @@ const DashboardWrapper = ({ children }: { children: React.ReactNode }) => {
                           priority
                           className="pl-8 py-[30px]"
                         />
-                      </a>
+                      </Link>
                       <nav className="text-white px-4 space-y-2">
                         {SIDEBAR_ITEM.map((item) =>
                           item.title === "Logout" ? (
