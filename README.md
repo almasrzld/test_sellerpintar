@@ -24,6 +24,7 @@ Aplikasi manajemen artikel dengan role **User** dan **Admin**, dibangun mengguna
 - [x] Filter & Search (debounce)
 - [x] Detail artikel + related posts
 - [x] Logout
+- [x] Responsive mobile
 
 ### Admin
 
@@ -31,6 +32,7 @@ Aplikasi manajemen artikel dengan role **User** dan **Admin**, dibangun mengguna
 - [x] CRUD kategori
 - [x] CRUD artikel + preview
 - [x] Filtering, search, pagination
+- [x] Responsive mobile
 
 ✅ Perbaikan kode:
 
